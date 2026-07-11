@@ -1,5 +1,1 @@
 flask
-pymongo
-dnspython
-eth-account
-web3
