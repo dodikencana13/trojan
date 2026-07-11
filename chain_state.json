@@ -1,0 +1,73 @@
+{
+    "chain_name": "Trojan Chain",
+    "chain_id": 1303,
+    "balances": {
+        "0x8A339E44b2aceaa1F57bdD5ecd040fF0a18930eB": 998950000.0,
+        "0x0000000000000000000000000000000000000000": 1000000.0,
+        "0x1234567890123456789012345678901234567890": 50000.0
+    },
+    "transactions": [
+        {
+            "hash": "0x50b2e784441514253d1d65ed73deaefc2b83ff617ee14ae44d9ebd37f3331619",
+            "from": "0x0000000000000000000000000000000000000000",
+            "to": "0x3f999610775a316504076ecc807207d00c9004e4",
+            "value": 0,
+            "type": "Contract Deployment",
+            "timestamp": "2026-07-11T20:08:14.008081",
+            "details": "Deployed TrojanGaslessRelayer"
+        },
+        {
+            "hash": "0x8f2b2b84909b5c0e01b81f7b871f3a210bb7be78a738a23a98954158b61d7888",
+            "from": "0x8A339E44b2aceaa1F57bdD5ecd040fF0a18930eB",
+            "to": "0x0000000000000000000000000000000000000000",
+            "value": 1000000.0,
+            "type": "Transfer",
+            "timestamp": "2026-07-11T20:08:14.025308",
+            "details": "Gasless transfer via Relayer 0x3f999610775a316504076ecc807207d00c9004e4"
+        },
+        {
+            "hash": "0x89a08976c45ed9b4367d78b2efaf303918c6e1d3a1a7390c16f33e26f46b084f",
+            "from": "0x8A339E44b2aceaa1F57bdD5ecd040fF0a18930eB",
+            "to": "0x1234567890123456789012345678901234567890",
+            "value": 50000.0,
+            "type": "Transfer",
+            "timestamp": "2026-07-11T20:08:14.038929",
+            "details": "Gasless transfer via Relayer 0x3f999610775a316504076ecc807207d00c9004e4"
+        }
+    ],
+    "blocks": [
+        {
+            "number": 0,
+            "timestamp": "2026-07-11T20:08:14.008059",
+            "transactions": [],
+            "hash": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+            "number": 1,
+            "timestamp": "2026-07-11T20:08:14.008119",
+            "transactions": [
+                "0x50b2e784441514253d1d65ed73deaefc2b83ff617ee14ae44d9ebd37f3331619"
+            ],
+            "hash": "0x4ce1ef3b402a777a4397eeaf3d4a49f1496d83cdbc1fb60c4822fb36b6d6db63"
+        },
+        {
+            "number": 2,
+            "timestamp": "2026-07-11T20:08:14.025323",
+            "transactions": [
+                "0x8f2b2b84909b5c0e01b81f7b871f3a210bb7be78a738a23a98954158b61d7888"
+            ],
+            "hash": "0x349407748600d0f97ca61d301fbe8ca0a3f118271493147a0615c8c7e9e4265b"
+        },
+        {
+            "number": 3,
+            "timestamp": "2026-07-11T20:08:14.038949",
+            "transactions": [
+                "0x89a08976c45ed9b4367d78b2efaf303918c6e1d3a1a7390c16f33e26f46b084f"
+            ],
+            "hash": "0x4fc5243e3a3d2fe296172bcb714ed5e284c8e8bf5a14626ca3a2aa52184a431f"
+        }
+    ],
+    "contracts": [
+        "0x3f999610775a316504076ecc807207d00c9004e4"
+    ]
+}
