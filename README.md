@@ -1,33 +1,40 @@
 # 🛡️ Trojan Chain (T-ETH)
-### The World's First Truly Gasless L1 Ecosystem
+### The Future of Gasless Blockchain Infrastructure
 
-Trojan Chain is a high-performance Layer 1 blockchain designed to eliminate the biggest barrier to Web3 adoption: **Gas Fees**. By decoupling the transaction authorization from the network payment, Trojan Chain enables a seamless, "invisible" blockchain experience for the end-user.
+Welcome to the official repository of the **Trojan Chain**, a high-performance Layer 1 blockchain engineered to eliminate the "Gas Wall" and enable mass adoption of decentralized applications.
 
----
-
-## 🌟 Key Features
-- **Zero-Gas User Experience**: Users sign transactions off-chain; Relayers handle the network fees.
-- **Hyper-Fast Finality**: Optimized state transitions for near-instant confirmations.
-- **EVM Compatible**: Fully compatible with Ethereum tools (MetaMask, Hardhat, Viem).
-- **Sovereign Identity**: Built-in support for EIP-712 structured data signatures.
-
-## 🚀 Quick Start
-### For Users
-1. Add Trojan Chain to your wallet using our RPC.
-2. Request T-ETH from the official Trojan Faucet.
-3. Experience gasless transfers!
-
-### For Developers
-Deploy your smart contracts using our optimized relayer infrastructure. Trojan Chain provides a standardized interface for "Paymasters," allowing developers to sponsor their users' gas fees.
-
-## 🛠️ Ecosystem Components
-- **T-RPC Node**: The core JSON-RPC server powering the chain.
-- **Trojan Relayer**: The specialized node that verifies signatures and executes transfers.
-- **Trojan Explorer**: Real-time transparency for every block and transaction.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![ChainID: 1303](https://img.shields.io/badge/ChainID-1303-blue)](https://etherscan.io)
 
 ---
-## 📜 Project Links
-- [Whitepaper](./WHITEPAPER.md)
-- [Tokenomics](./TOKENOMICS.md)
-- [Technical Documentation](./DOCUMENTATION.md)
-- [Architecture Deep Dive](./ARCHITECTURE.md)
+
+## 🌟 Vision
+Trojan Chain is designed on the premise that **blockchain should be invisible**. By decoupling the transaction authorization from the payment layer, we allow users to interact with the blockchain without ever needing to hold a native token for gas.
+
+## 🚀 Core Innovations
+- **Gasless Relayer Architecture**: A specialized node system that sponsors user transactions.
+- **Sovereign Identity**: Full integration of EIP-712 structured data for secure, off-chain intents.
+- **Hyper-Efficient State**: A custom-built state-transition engine optimized for low latency.
+- **EVM Compatibility**: Build, deploy, and migrate your Ethereum apps with zero code changes.
+
+## 📁 Project Structure
+- `/docs`: Full technical and economic specifications.
+- `/src`: Core RPC server and blockchain engine.
+- `/contracts`: Solidity smart contracts for the Relayer and Ecosystem.
+
+## 📖 Documentation
+For a deep dive into the Trojan Chain, please visit our documentation:
+- [📖 Whitepaper](./docs/WHITEPAPER.md) - The vision and technical philosophy.
+- [💰 Tokenomics](./docs/TOKENOMICS.md) - The T-ETH economic model.
+- [🛠️ Developer Guide](./docs/DOCUMENTATION.md) - How to build on Trojan Chain.
+- [🏗️ Architecture](./docs/ARCHITECTURE.md) - Deep dive into the la-relay system.
+
+## 🛠️ Quick Launch
+To run your own Trojan Node locally:
+```bash
+pip install -r requirements.txt
+python src/trojan_rpc_sqlite.py
+```
+
+## ⚖️ License
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
