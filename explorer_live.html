@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrojanScan | Live Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/index.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0b; color: #fff; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .eth-gradient { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+    </style>
+</head>
+<body>
+    <nav class="border-b border-white/10 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold flex items-center gap-2">
+                <i class="fas fa-search text-indigo-500"></i> TrojanScan <span class="text-xs bg-indigo-600 px-2 py-0.5 rounded text-white">LIVE</span>
+            </div>
+            <div class="flex gap-4">
+                <input id="rpcUrl" type="text" value="http://localhost:5000" class="bg-black border border-white/20 rounded px-3 py-1 text-xs text-gray-400 w-64" placeholder="RPC URL">
+                <button onclick="initExplorer()" class="bg-indigo-600 px-3 py-1 rounded text-xs font-bold hover:bg-indigo-700 transition-all">Connect</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-6">
+        <!-- Stats Bar -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-gray-500 text-xs uppercase font-semibold">Latest Block</p>
+                <h2 id="blockHeight" class="text-3xl font-bold">Loading...</h2>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-gray-500 text-xs uppercase font-semibold">Chain ID</p>
+                <h2 id="chainId" class="text-3xl font-bold">Loading...</h2>
+            </div>
+            <div class="glass p-6 rounded-2xl">
+                <p class="text-gray-500 text-xs uppercase font-semibold">Network Status</p>
+                <h2 id="netStatus" class="text-3xl font-bold text-green-500">Checking...</h2>
+            </div>
+        </div>
+
+        <!-- Address Search -->
+        <div class="max-w-3xl mx-auto mb-12">
+            <div class="relative">
+                <input id="searchAddr" type="text" placeholder="Search by Address (0x...)" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-lg focus:border-indigo-500 outline-none transition-all">
+                <button onclick="searchAddress()" class="absolute right-3 top-3 bg-indigo-600 px-6 py-2 rounded-xl font-bold hover:bg-indigo-700 transition-all">Search</button>
+            </div>
+        </div>
+
+        <!-- Result Area -->
+        <div id="resultArea" class="hidden">
+            <div class="glass p-8 rounded-3xl mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Account Overview</h3>
+                    <span id="resAddr" class="font-mono text-sm text-gray-400"></span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-gray-500 text-sm">Current Balance</p>
+                        <h2 id="resBalance" class="text-5xl font-extrabold text-indigo-400">0.00 T-ETH</h2>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-gray-500 text-sm">Nonce</p>
+                        <h2 id="resNonce" class="text-5xl font-extrabold">0</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let provider;
+
+        async function initExplorer() {
+            const url = document.getElementById('rpcUrl').value;
+            try {
+                provider = new ethers.JsonRpcProvider(url);
+                const block = await provider.getBlockNumber();
+                const chainId = await provider.getNetwork();
+                
+                document.getElementById('blockHeight').innerText = `#${block}`;
+                document.getElementById('chainId').innerText = chainId.chainId;
+                document.getElementById('netStatus').innerText = "Operational";
+                console.log("✅ Connected to Trojan Chain");
+            } catch (e) {
+                alert("Connection Failed: " + e.message);
+                document.getElementById('netStatus').innerText = "Offline";
+                document.getElementById('netStatus').classList.replace('text-green-500', 'text-red-500');
+            }
+        }
+
+        async function searchAddress() {
+            const addr = document.getElementById('searchAddr').value;
+            if (!ethers.isAddress(addr)) {
+                alert("Invalid Ethereum Address");
+                return;
+            }
+
+            try {
+                const balance = await provider.getBalance(addr);
+                document.getElementById('resultArea').classList.remove('hidden');
+                document.getElementById('resAddr').innerText = addr;
+                document.getElementById('resBalance').innerText = `${ethers.formatEther(balance)} T-ETH`;
+                
+                // Nonce is not a standard provider call, would need custom RPC method
+                // For now, we'll leave it as 0 or call a custom method if implemented.
+                document.getElementById('resNonce').innerText = "N/A";
+            } catch (e) {
+                alert("Error fetching balance: " + e.message);
+            }
+        }
+
+        // Initial load
+        window.onload = () => {
+            console.log("TrojanScan Loaded. Please enter RPC URL and connect.");
+        };
+    </script>
+</body>
+</html>
