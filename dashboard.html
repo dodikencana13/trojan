@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trojan Portal | Gasless Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.1/index.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0b; color: #fff; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-btn { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); transition: all 0.3s ease; }
+        .gradient-btn:hover { opacity: 0.9; transform: scale(1.02); }
+    </style>
+</head>
+<body>
+    <!-- Nav -->
+    <nav class="border-b border-white/10 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-xl font-bold flex items-center gap-2">
+                <i class="fas fa-shield-virus text-indigo-500"></i> TROJAN <span class="text-indigo-500">PORTAL</span>
+            </div>
+            <button id="connectBtn" onclick="connectWallet()" class="bg-indigo-600 px-6 py-2 rounded-full font-bold hover:bg-indigo-700 transition-all text-sm">
+                Connect Wallet
+            </button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-12">
+        <div id="welcomeSection" class="text-center py-20">
+            <h1 class="text-5xl font-extrabold mb-6">Welcome to the <span class="text-indigo-500">Gasless Era</span></h1>
+            <p class="text-gray-400 max-w-xl mx-auto mb-10">Connect your wallet to manage your T-ETH and experience the power of the Trojan Relayer.</p>
+            <button onclick="connectWallet()" class="px-10 py-4 bg-indigo-600 rounded-full font-bold text-lg hover:bg-indigo-700 transition-all">Get Started</button>
+        </div>
+
+        <div id="dashboardSection" class="hidden">
+            <!-- User Profile -->
+            <div class="glass p-8 rounded-3xl mb-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div>
+                    <p class="text-gray-500 text-sm uppercase font-semibold">Connected Wallet</p>
+                    <h2 id="userAddr" class="text-xl font-mono text-indigo-300">0x...</h2>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-500 text-sm uppercase font-semibold">Your Balance</p>
+                    <h2 id="userBalance" class,="text-4xl font-extrabold">0.00 T-ETH</h2>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Send Funds -->
+                <div class="glass p-8 rounded-3xl">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fas fa-paper-plane text-indigo-500"></i> Send T-ETH
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-gray-500 text-xs mb-2 uppercase">Recipient Address</label>
+                            <input id="toAddr" type="text" placeholder="0x..." class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-indigo-500 transition-all">
+                        </div>
+                        <div>
+                            <label class="block text-gray-500 text-xs mb-2 uppercase">Amount (T-ETH)</label>
+                            <input id="amount" type="number" placeholder="0.0" class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-indigo-500 transition-all">
+                        </div>
+                        <button onclick="sendGasless()" class="w-full py-4 gradient-btn rounded-xl font-bold text-lg mt-4">
+                            Send Gasless
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Activity Log -->
+                <div class="glass p-8 rounded-3xl">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fas fa-history text-indigo-500"></i> Activity
+                    </h3>
+                    <div id="txLog" class="space-y-4 max-h-64 overflow-y-auto pr-2">
+                        <p class="text-gray-600 text-center py-10 italic">No recent activity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let provider;
+        let signer;
+        let rpcUrl = "http://localhost:5000"; // Change to Render URL when live
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
+                    provider = new ethers.BrowserProvider(window.ethereum);
+                    signer = await provider.getSigner();
+                    const address = await signer.getAddress();
+                    
+                    document.getElementById('userAddr').innerText = address;
+                    document.getElementById('welcomeSection').classList.add('hidden');
+                    document.getElementById('dashboardSection').classList.remove('hidden');
+                    document.getElementById('connectBtn').innerText = "Connected";
+                    
+                    updateBalance(address);
+                } catch (e) {
+                    alert("Connection failed: " + e.message);
+                }
+            } else {
+                alert("Please install MetaMask!");
+            }
+        }
+
+        async function updateBalance(address) {
+            try {
+                const rpcProvider = new ethers.JsonRpcProvider(rpcUrl);
+                const balance = await rpcProvider.getBalance(address);
+                document.getElementById('userBalance').innerText = `${ethers.formatEther(balance)} T-ETH`;
+            } catch (e) {
+                console.error("Balance fetch error:", e);
+            }
+        }
+
+        async function sendGasless() {
+            const to = document.getElementById('toAddr').value;
+            const amount = document.getElementById('amount').value;
+            if (!ethers.isAddress(to) || !amount) {
+                alert("Please provide a valid address and amount");
+                return;
+            }
+
+            try {
+                // 1. Create the EIP-712 Intent
+                const domain = {
+                    name: "TrojanGaslessApp",
+                    version: "1",
+                    chainId: 1303,
+                    verifyingContract: "0x3a07d65671F2ed313Cf53a10600F88c83bB63754" // Your deployed contract
+                };
+                const types = {
+                    Transfer: [
+                        { name: "from", type: "address" },
+                        { name: "to", type: "address" },
+                        { name: "amount", type: "uint256" },
+                        { name: "nonce", type, "uint256" }
+                    ]
+                };
+                const value = {
+                    from: await signer.getAddress(),
+                    to: to,
+                    amount: ethers.parseEther(amount),
+                    nonce: 0 // In real app, fetch this from RPC
+                };
+
+                // 2. Sign the intent (Gasless!)
+                const signature = await signer.signTypedData(domain, types, value);
+                
+                // 3. Send signature to Relayer RPC
+                const response = await fetch(rpcUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        jsonrpc: "2.0",
+                        method: "trojan_transfer",
+                        params: [value.from, value.to, amount],
+                        id: 1
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.result) {
+                    alert("Transaction Successful! Hash: " + result.result);
+                    addToLog(value.to, amount, result.result);
+                    updateBalance(await signer.getAddress());
+                } else {
+                    alert("Error: " + (result.error?.message || "Unknown error"));
+                }
+            } catch (e) {
+                alert("Transaction failed: " + e.message);
+            }
+        }
+
+        function addToLog(to, amount, hash) {
+            const log = document.getElementById('txLog');
+            if (log.innerHTML.includes("No recent activity")) log.innerHTML = "";
+            const item = document.createElement('div');
+            item,className = "glass p-4 rounded-xl flex justify-between items-center text-sm";
+            item.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-arrow-up text-green-500"></i>
+                    <span class="text-gray-300">Sent ${amount} T-ETH to ${to.substring(0,6)}...</span>
+                </div>
+                <span class="text-xs font-mono text-gray-500">${hash.substring(0,10)}...</span>
+            `;
+            log.prepend(item);
+        }
+    </script>
+</body>
+</html>
