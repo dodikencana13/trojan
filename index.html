@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trojan Chain | The Gasless Revolution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0a0a0b; color: #fff; }
+        .gradient-text {
+            background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-glow {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-glow"></div>
+    
+    <!-- Nav -->
+    <nav class="container mx-auto px-6 py-6 flex justify-between items-center">
+        <div class="text-2xl font-extrabold tracking-tighter flex items-center gap-2">
+            <i class="fas fa-shield-virus text-indigo-500"></i> TROJAN <span class="text-indigo-500">CHAIN</span>
+        </div>
+        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+            <a href="#vision" class="hover:text-white transition-colors">Vision</a>
+            <a href="#tech" class="hover:text-white transition-colors">Technology</a>
+            <a href="#tokenomics" class="hover:text-white transition-colors">Tokenomics</a>
+            <a href="https://github.com/dodikencana13/trojan" class="text-white bg-indigo-600 px-4 py-2 rounded-full hover:bg-indigo-700 transition-all">Explore GitHub</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="container mx-auto px-6 py-24 text-center">
+        <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight mb-6">
+            Blockchain <br> <span class="gradient-text">Without the Gas.</span>
+        </h1>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+            Trojan Chain is a next-generation L1 ecosystem that eliminates the "Gas Wall." <br>
+            Authorize transactions off-chain, execute them on-chain, and enjoy a seamless Web3 experience.
+        </p>
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="#tech" class="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all">Discover the Tech</a>
+            <a href="https://github.com/dodikencana13/trojan" class="px-8 py-4 bg-white/10 text-white font-bold rounded-full border border-white/20 hover:bg-white/20 transition-all">View Repository</a>
+        </div>
+    </header>
+
+    <!-- Features Grid -->
+    <section id="tech" class="container mx-auto px-6 py-24">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Engineered for <span class="text-indigo-500">Adoption</span></h2>
+            <p class="text-gray-400">A complete overhaul of the traditional EVM transaction flow.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-8 rounded-3xl">
+                <div class="w-12 h-12 bg-indigo-600/20 text-indigo-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Zero-Gas UX</h3>
+                <p class="text-gray-400 leading-relaxed">Users no longer need native tokens to interact with dApps. The Relayer network sponsors the cost, making Web3 as easy as Web2.</p>
+            </div>
+            <div class="glass-card p-8 rounded-3xl">
+                <div class="w-12 h-12 bg-purple-600/20 text-purple-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">EIP-712 Intents</h3>
+                <p class="text-gray-400 leading-relaxed">Our system uses structured data signatures. Users sign their "intent" off-chain, ensuring security without spending a single wei.</p>
+            </div>
+            <div class="glass-card p-8 rounded-3xl">
+                <div class="w-12 h-12 bg-pink-600/20 text-pink-500 rounded-xl flex items-center justify-center mb-6 text-2xl">
+                    <i class="fas fa-link"></i>
+                </div>
+                <h3 class="text-xl font-bold mb,3">EVM Native</h3>
+                <p class="text-gray-400 leading-relaxed">Fully compatible with MetaMask and Hardhat. Move your existing Ethereum projects to Trojan Chain in minutes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-indigo-600 py-20">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center text-white">
+            <div>
+                <div class="text-5xl font-extrabold mb-2">1303</div>
+                <div class="text-indigo-200 uppercase tracking-widest text-sm">Chain ID</div>
+            </div>
+            <div>
+                <div class="text-5xl font-extrabold mb-2">1B</div>
+                <div class="text-indigo-200 uppercase tracking-widest text-sm">T-ETH Supply</div>
+            </div>
+            <div>
+                <div class="text-5xl font-extrabold mb-2">0.0</div>
+                <div class="text-indigo-200 uppercase tracking-widest text-sm">User Gas Cost</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="container mx-auto px-6 py-12 text-center text-gray-500 text-sm">
+        <p>&copy; 2026 Trojan Chain Foundation. All rights reserved.</p>
+        <div class="flex justify-center gap-6 mt-4">
+            <a href="https://github.com/dodikencana13/trojan" class="hover:text-white"><i class="fab fa-github text-xl"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-twitter text-xl"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-discord text-xl"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
